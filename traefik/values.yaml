@@ -1,0 +1,22 @@
+additionalArguments:
+  - --global.checknewversion=false
+  - --global.sendanonymoususage=false
+  - --certificatesresolvers.letsencrypt.acme.email=danielrichter@posteo.de
+  - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=hetzner
+  - --certificatesresolvers.letsencrypt.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+  - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
+logs:
+  general:
+    level: INFO
+ports:
+  web:
+    redirectTo: websecure
+env:
+  - name: HETZNER_API_KEY
+    valueFrom:
+      secretKeyRef:
+        key: token
+        name: hetzner-api-token
+persistence:
+  enabled: true
+  storageClass: nfs-client

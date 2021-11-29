@@ -20,3 +20,6 @@ env:
 persistence:
   enabled: true
   storageClass: nfs-client
+ingressRoute:
+  dashboard:
+    enabled: false

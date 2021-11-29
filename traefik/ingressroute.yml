@@ -2,13 +2,14 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dashboard
+  name: traefik-dashboard
+  namespace: traefik
 spec:
   entryPoints:
     - web
     - websecure
   routes:
-    - match: Host(`traefik.app.local.danielr1996.de`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    - match: Host(`traefik.app.local.danielr1996.de`) && (PathPrefix(`/`) || PathPrefix(`/api`))
       kind: Rule
       services:
         - name: api@internal

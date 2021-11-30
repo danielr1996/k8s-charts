@@ -3,7 +3,6 @@ additionalArguments:
   - --global.sendanonymoususage=false
   - --certificatesresolvers.letsencrypt.acme.email=danielrichter@posteo.de
   - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=hetzner
-  - --certificatesresolvers.letsencrypt.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
   - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
 logs:
   general:

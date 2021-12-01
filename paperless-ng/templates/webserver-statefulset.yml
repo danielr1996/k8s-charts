@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: '{{ .Release.Name }}-webserver'
+  labels:
+     # TODO: Use templates
+    app.kubernetes.io/name: paperless-ng
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: webserver
+    helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  replicas: 1
+  serviceName: '{{ .Release.Name }}-webserver'
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: webserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: '{{.Values.image.webserver.repository}}:{{.Values.image.webserver.tag}}'
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              port: 8000
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
+          env:
+            - name: PAPERLESS_REDIS
+              value: 'redis://{{ .Release.Name }}-redis:6379'
+            - name: PAPERLESS_DBHOST
+              value: '{{ .Release.Name }}-postgres'
+            - name: PAPERLESS_ADMIN_USER
+              value: admin
+            - name: PAPERLESS_ADMIN_PASSWORD
+              value: admin
+          volumeMounts:
+            - mountPath: /usr/src/paperless/media
+              name: '{{ .Release.Name }}-media'
+            - mountPath: /usr/src/paperless/data
+              name: '{{ .Release.Name }}-data'
+  volumeClaimTemplates:
+      - metadata:
+          name: '{{ .Release.Name }}-media'
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: '{{ .Values.persistence.storageClassName}}'
+          resources:
+            requests:
+              storage: 1Gi
+      - metadata:
+          name: '{{ .Release.Name }}-data'
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: '{{ .Values.persistence.storageClassName}}'
+          resources:
+            requests:
+              storage: 1Gi

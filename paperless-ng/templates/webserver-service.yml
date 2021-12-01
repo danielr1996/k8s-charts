@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{{ .Release.Name }}-webserver'
+  labels:
+    # TODO: Use templates
+    app.kubernetes.io/name: paperless-ng
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: webserver
+    helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: webserver
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
+### Paperless apps for android do not seem to work with a local DNS Server so we expose it by IP also
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: '{{ .Release.Name }}-webserver-legacy'
+  labels:
+    # TODO: Use templates
+    app.kubernetes.io/name: paperless-ng
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: webserver
+    helm.sh/chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: webserver
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

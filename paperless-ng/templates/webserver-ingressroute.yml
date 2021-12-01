@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: paperless-ng-ingressroute
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`paperless.app.local.danielr1996.de`)
+      kind: Rule
+      services:
+        - name: '{{ .Release.Name }}-webserver'
+          kind: Service
+          port: 8000
+  tls:                              
+    certResolver: letsencrypt

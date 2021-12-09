@@ -8,7 +8,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`paperless.app.local.danielr1996.de`)
+    - match: 'Host(`{{ .Values.ingress.url }}`)'
       kind: Rule
       services:
         - name: '{{ .Release.Name }}-webserver'

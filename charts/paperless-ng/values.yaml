@@ -11,3 +11,5 @@ image:
 persistence:
   basepath: ""
   server: ""
+ingress:
+  url: paperless.app.local.danielr1996.de

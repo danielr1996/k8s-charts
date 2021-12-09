@@ -39,12 +39,16 @@ spec:
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: '{{ .Release.Name }}-postgres'
-  volumeClaimTemplates:
-    - metadata:
-        name: '{{ .Release.Name }}-postgres'
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: '{{ .Values.persistence.storageClassName}}'
-        resources:
-          requests:
-            storage: 1Gi
+      volumes:
+        - name: '{{ .Release.Name }}-postgres'
+          persistentVolumeClaim:
+            claimName: '{{ .Release.Name }}-postgres'
+#  volumeClaimTemplates:
+#    - metadata:
+#        name: '{{ .Release.Name }}-postgres'
+#      spec:
+#        accessModes: ["ReadWriteOnce"]
+#        storageClassName: '{{ .Values.persistence.storageClassName}}'
+#        resources:
+#          requests:
+#            storage: 1Gi

@@ -1,0 +1,5 @@
+replicaCount: 3
+containerPort: 8080
+ingressPort: 80
+domain: echo.example.com
+ssl: false

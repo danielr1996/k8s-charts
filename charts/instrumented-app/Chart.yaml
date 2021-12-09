@@ -1,0 +1,6 @@
+apiVersion: v2
+name: instrumented-app
+version: 1.0.4
+description: A Helm Chart to deploy a simple app that exposes prometheus metrics
+type: application
+appVersion: "1.0.0"

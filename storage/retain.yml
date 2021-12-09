@@ -1,4 +1,0 @@
-storageClass:
-  name: nfs-retain
-  reclaimPolicy: Retain
-  defaultClass: false

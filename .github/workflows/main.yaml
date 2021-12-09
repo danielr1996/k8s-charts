@@ -1,0 +1,49 @@
+name: Release Charts
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+      - name: Clean
+        run: |
+          rm -rf *.tgz
+          rm -rf index.yaml
+      - name: Package charts
+        run: |
+          packages=$(ls charts | sed 's/\///g' | tr '\n' ',' | sed 's/.$//')
+          packagecount=$(echo $packages | tr ',' '\n' | wc -l)
+          if [ $packagecount -lt 1 ]; then
+            exit -1;
+          elif [ $packagecount -eq 1 ]; then
+            eval "helm package charts/$packages --destination ."
+          else
+            eval "helm package charts/{$packages} --destination ."
+          fi
+          git checkout gh-pages
+      - name: Index charts
+        run: |
+          helm repo index .
+      - name: Commit Changes
+        run: |
+          git add .
+          git commit --amend -CHEAD -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          force: true

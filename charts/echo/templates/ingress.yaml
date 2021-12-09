@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  {{- include "chart.metadata" . | nindent 2 }}
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  {{- if .Values.ssl }}
+  tls:
+  - hosts:
+    - {{ .Values.domain }}
+    secretName: {{ .Release.Name }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.domain }}
+      http:
+        paths:
+          - backend:
+              service:
+                {{ include "chart.name" . }}
+                port:
+                  number: {{ .Values.ingressPort }}
+            path: /
+            pathType: Prefix

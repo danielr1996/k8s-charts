@@ -46,23 +46,30 @@ spec:
               value: admin
           volumeMounts:
             - mountPath: /usr/src/paperless/media
-              name: '{{ .Release.Name }}-media'
+              name: '{{ .Release.Name }}-webserver-media'
             - mountPath: /usr/src/paperless/data
-              name: '{{ .Release.Name }}-data'
-  volumeClaimTemplates:
-      - metadata:
-          name: '{{ .Release.Name }}-media'
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          storageClassName: '{{ .Values.persistence.storageClassName}}'
-          resources:
-            requests:
-              storage: 1Gi
-      - metadata:
-          name: '{{ .Release.Name }}-data'
-        spec:
-          accessModes: ["ReadWriteOnce"]
-          storageClassName: '{{ .Values.persistence.storageClassName}}'
-          resources:
-            requests:
-              storage: 1Gi
+              name: '{{ .Release.Name }}-webserver-data'
+      volumes:
+        - name: '{{ .Release.Name }}-webserver-media'
+          persistentVolumeClaim:
+            claimName: '{{ .Release.Name }}-webserver-media'
+        - name: '{{ .Release.Name }}-webserver-data'
+          persistentVolumeClaim:
+            claimName: '{{ .Release.Name }}-webserver-data'
+#  volumeClaimTemplates:
+#      - metadata:
+#          name: '{{ .Release.Name }}-media'
+#        spec:
+#          accessModes: ["ReadWriteOnce"]
+#          storageClassName: '{{ .Values.persistence.storageClassName}}'
+#          resources:
+#            requests:
+#              storage: 1Gi
+#      - metadata:
+#          name: '{{ .Release.Name }}-data'
+#        spec:
+#          accessModes: ["ReadWriteOnce"]
+#          storageClassName: '{{ .Values.persistence.storageClassName}}'
+#          resources:
+#            requests:
+#              storage: 1Gi

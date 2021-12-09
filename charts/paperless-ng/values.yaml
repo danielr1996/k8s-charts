@@ -9,4 +9,5 @@ image:
     repository: postgres
     tag: "13"
 persistence:
-  storageClassName: nfs
+  basepath: ""
+  server: ""

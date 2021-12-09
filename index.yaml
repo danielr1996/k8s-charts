@@ -1,0 +1,67 @@
+apiVersion: v1
+entries:
+  bashdoard:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2021-12-12T10:24:54.329050743Z"
+    description: A Helm chart for bashdoard
+    digest: 6821d2e510db02f14e7d76b74a2f8a34c8f5164d4ce79b1ecf3b3266f68c642a
+    name: bashdoard
+    type: application
+    urls:
+    - bashdoard-0.1.0.tgz
+    version: 0.1.0
+  echo:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-12T10:24:54.330146074Z"
+    description: A Helm chart for a simple echo server
+    digest: d2e3dbcee111da88fcea4c890ef1fabda6324462c013eb7a18cf83ee4dd758bd
+    home: https://github.com/jmalloc/echo-server
+    keywords:
+    - echo
+    - server
+    - http
+    maintainers:
+    - email: danielrichter@posteo.de
+      name: Daniel Richter
+    name: echo
+    sources:
+    - https://github.com/jmalloc/echo-server
+    type: application
+    urls:
+    - echo-1.0.0.tgz
+    version: 1.0.0
+  instrumented-app:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-12T10:24:54.330365381Z"
+    description: A Helm Chart to deploy a simple app that exposes prometheus metrics
+    digest: bfb6844e3be68d33aa8f854ec30e746e192f1061e4c483ed6069e4837279ec97
+    name: instrumented-app
+    type: application
+    urls:
+    - instrumented-app-1.0.4.tgz
+    version: 1.0.4
+  paperless-ng:
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2021-12-12T10:24:54.331879724Z"
+    description: A Helm chart for paperless-ng
+    digest: e71549240262a411e2836456d05524f58474a2edb3162101ddd0e95af18ba264
+    name: paperless-ng
+    type: application
+    urls:
+    - paperless-ng-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2021-12-12T10:24:54.330994198Z"
+    description: A Helm chart for paperless-ng
+    digest: 9f56182322cfbfc0d1618f77108a13dfef71a5160def7ba45e5e28e334b71cff
+    name: paperless-ng
+    type: application
+    urls:
+    - paperless-ng-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-12-12T10:24:54.328443426Z"

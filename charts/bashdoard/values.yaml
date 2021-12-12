@@ -1,0 +1,10 @@
+image:
+  backend:
+    repository: ghcr.io/danielr1996/bashdoard-backend
+    tag: "latest"
+  frontend:
+    repository: ghcr.io/danielr1996/bashdoard-frontend
+    tag: "latest"
+ingress:
+  api: api.dashboard.app.local.danielr1996.de
+  url: dashboard.app.local.danielr1996.de

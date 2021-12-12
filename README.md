@@ -3,6 +3,7 @@
 This repository contains [Helm](https://helm.sh) charts for my personal projects and projects that don't have a chart themselves.
 
 * [paperless-ng](charts/paperless-ng/)
+* [bashdoard](charts/bashdoard/)
 
 ## Installing Charts from this Repository
 

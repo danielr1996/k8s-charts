@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: bashdoard-view
+rules:
+- apiGroups: ["bashdoard.danielr1996.de"]
+  resources: ["dashboardentries"]
+  verbs: ["get", "watch", "list"]

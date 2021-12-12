@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: dashboardentries.bashdoard.danielr1996.de
+spec:
+  group: bashdoard.danielr1996.de
+  versions:
+    - name: v1alpha
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                url:
+                  type: string
+                faviconLocation: 
+                  type: string
+  scope: Namespaced
+  names:
+    plural: dashboardentries
+    singular: dashboardentry
+    kind: DashboardEntry
+    shortNames:
+    - dbe
